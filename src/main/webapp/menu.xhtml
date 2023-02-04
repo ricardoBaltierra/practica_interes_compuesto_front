@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    <ui:define name="content">        
+        <div id="mainContainer">
+    <table width="100%" align="center">
+        <tr>
+            <td align="center">
+                <table>
+                    <tr>
+                        <td align="center">
+                            <h:form id="formFilterSismos">
+                                <table>
+                                    <tr>
+                                        <td align="right">
+                                            <h:outputLabel for="initialInvestment" value="Inversión inicial:"/>
+                                        </td>
+                                        <td>
+                                            <p:inputNumber id="initialInvestment" value="#{beanSismos.initialInvestment}" decimalPlaces="0"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">
+                                            <h:outputLabel for="annualContribution" value="Aportación anual:"/>
+                                        </td>
+                                        <td>
+                                            <p:inputNumber id="annualContribution" value="#{beanSismos.annualContribution}" decimalPlaces="0"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">
+                                            <h:outputLabel for="investmentIncrease" value="Incremento a la aportación anual:"/>
+                                        </td>
+                                        <td>
+                                            <p:inputNumber id="investmentIncrease" value="#{beanSismos.investmentIncrease}" decimalPlaces="0" symbol="%" symbolPosition="s"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">
+                                            <h:outputLabel for="investmentYears" value="Años de inversión:"/>
+                                        </td>
+                                        <td>
+                                            <p:inputNumber id="investmentYears" value="#{beanSismos.investmentYears}" decimalPlaces="0"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right">
+                                            <h:outputLabel for="investmentReturn" value="Rendimiento de inversión:"/>
+                                        </td>
+                                        <td>
+                                            <p:inputNumber id="investmentReturn" value="#{beanSismos.investmentReturn}" decimalPlaces="0" symbol="%" symbolPosition="s"/>
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td colspan="2" align="center">
+                                            <p:commandButton id="btnConsultarSismos" ajax="false"
+                                                             value="Calcular inversión" action="#{beanSismos.calculateInvestment}"/>&nbsp;
+                                        </td>
+                                    </tr>                                     
+                                    <tr>
+                                        <td align="right">&nbsp;&nbsp;
+                                            <h:outputLabel for="investmentProfit" value="Ganancia por inversión:"/>
+                                        </td>
+                                        <td>
+                                            <p:inputNumber id="investmentProfit" value="#{beanSismos.resume.investmentProfit}" decimalPlaces="0" symbol="$" />
+                                        </td>
+                                    </tr>                              
+                                    <tr>
+                                        <td align="right">
+                                            <h:outputLabel for="finalAmount" value="Monto Final: "/>
+                                        </td>
+                                        <td>
+                                            <p:inputNumber id="finalAmount" value="#{beanSismos.resume.finalAmount}" decimalPlaces="0" symbol="$" />
+                                        </td>
+                                    </tr>
+                <tr>
+                    <td colspan="2">
+                        <p:dataTable id="tblResume"
+                                     var="year" value="#{beanSismos.resume.annualSummaries}"
+                                     rowIndexVar="indice"
+                                     selectionMode="single"
+                                     lazy="true" rowKey="#{year.year}"
+                                     style="width: 50%; font-size: 14px;">
+
+                            <p:column headerText="Año" width="5%" style="text-align: center;">
+                                <h:outputText value="#{year.year}" />
+                            </p:column>
+
+                            <p:column headerText="Saldo Inicial" width="13%" style="text-align: center;">
+                                <h:outputText value="#{year.initialBalance}" />
+                            </p:column>
+
+                            <p:column headerText="Aportación" width="50%">
+                                <h:outputText value="#{year.contribution}" />
+                            </p:column>
+
+                            <p:column headerText="Rendimiento" width="50%">
+                                <h:outputText value="#{year.returnBalance}" />
+                            </p:column>
+
+                            <p:column headerText="Rendimiento" width="50%">
+                                <h:outputText value="#{year.finalBalance}" />
+                            </p:column>
+
+                        </p:dataTable>
+                    </td>
+                </tr>
+                                </table>
+                            </h:form>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+        </div>
+    </ui:define>
+</ui:composition>
